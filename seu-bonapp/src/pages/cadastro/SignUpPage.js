@@ -1,17 +1,43 @@
 import React, { useState } from "react";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
-import { auth } from "../../services/firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, db } from "../../services/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
-  const handleSignIn = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
-    createUserWithEmailAndPassword(email, password);
+    setLoading(true);
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+    try {
+
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", user.user.uid), {
+        uid: user.user.uid,
+
+        email,
+      });
+
+      console.log(user);
+      setLoading(false);
+      navigate('/')
+
+    } catch (error) {
+
+      setLoading(false);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode,errorMessage)
+
+    }
   };
 
   if (loading) {
@@ -22,14 +48,13 @@ const SignUpPage = () => {
     <div>
       <h1>Cadastro</h1>
       <h2>Insira seu nome e email</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <input
             type="text"
             name="email"
             id="email"
             placeholder="Digite seu email"
-            onChange={(e)=> setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -38,11 +63,10 @@ const SignUpPage = () => {
             name="senha"
             id="senha"
             placeholder="Digite sua senha"
-            onChange={(e)=> setPassword(e.target.value)}
           />
         </div>
+        <button>Cadastrar</button>
       </form>
-      <button onClick={handleSignIn}>Cadastrar</button>
       <div>
         <p>Já possui uma conta?</p>
         <Link to="/">Faça o login!</Link>
@@ -50,5 +74,4 @@ const SignUpPage = () => {
     </div>
   );
 };
-
 export default SignUpPage;

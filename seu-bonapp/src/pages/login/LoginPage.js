@@ -1,53 +1,65 @@
-import { Link } from "react-router-dom"
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebase";
 import { useState } from "react";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [signInWithEmailAndPassword, user, loading, error,
-  ] = useSignInWithEmailAndPassword(auth);
 
-  const handleSignIn = (e) => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    setLoading(true);
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setLoading(false);
+      navigate('/homepage')
+    } catch (error) {
+      setLoading(false);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
   };
 
   if (loading) {
-    return console.log(user)
+    return <p>Carregando...</p>;
   }
-
+  
   return (
     <div>
       <h1>Login</h1>
       <h2>Insira seu nome e email</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
-          <input 
-          type="text" 
-          name="email"
-          id="email"
-          placeholder="Digite seu email"
-          onChange={(e)=> setEmail(e.target.value)}/>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Digite seu email"
+          />
         </div>
         <div>
-          <input 
-          type="password" 
-          name="senha"
-          id="senha"
-          placeholder="Digite sua senha"
-          onChange={(e)=> setPassword(e.target.value)}/>
+          <input
+            type="password"
+            name="senha"
+            id="senha"
+            placeholder="Digite sua senha"
+          />
         </div>
+        <button>Login</button>
       </form>
-      <button onClick={handleSignIn}>Login</button>
+      
       <div>
         <p>Não possui uma conta?</p>
-        <Link to='/cadastro'>Cria sua conta aqui!</Link>
+        <Link to="/cadastro">Cria sua conta aqui!</Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
