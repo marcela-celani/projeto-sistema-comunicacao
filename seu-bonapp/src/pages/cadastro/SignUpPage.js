@@ -13,7 +13,7 @@ import {
   Button,
   Heading,
   Text,
-  Link,
+  Link as ChakraLink
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -21,6 +21,7 @@ import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Link } from 'react-router-dom';
 
 import logo from '../../assets/logo.png'
 
@@ -34,8 +35,9 @@ const SignUpPage = () => {
 
     e.preventDefault();
     setLoading(true);
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;  
+    // const firstName = e.target.firstName.value;
+    // const lastName = e.target.lastName.value;  
+    const displayName = e.target.displayName.value;
     const email = e.target.email.value; 
     const password = e.target.password.value;
 
@@ -45,9 +47,8 @@ const SignUpPage = () => {
 
       await setDoc(doc(db, "users", user.user.uid), {
         uid: user.user.uid,
-        firstName,
-        lastName,
-        email,
+        displayName,
+        email
       });
 
       console.log(user);
@@ -63,6 +64,7 @@ const SignUpPage = () => {
 
     }
   };
+
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -93,7 +95,7 @@ const SignUpPage = () => {
             <form onSubmit={handleSubmit}>
               <HStack>
                 <Box>
-                    <FormControl id="firstName" isRequired>
+                    <FormControl id="displayName" isRequired>
                       <FormLabel color={'gray.400'}>Nome</FormLabel>
                       <Input type="text" />
                     </FormControl>
@@ -140,7 +142,7 @@ const SignUpPage = () => {
                 
             <Stack pt={6}>
               <Text align={'center'} color={'gray.400'}>
-                Already a user? <Link to="/login" color={'blue.400'}>Login</Link>
+                Já possui conta? <Link to="/login" ><ChakraLink color={'blue.400'}>Login</ChakraLink></Link>
               </Text>
             </Stack>
           </Stack>

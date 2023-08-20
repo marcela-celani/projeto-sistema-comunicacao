@@ -4,6 +4,10 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+import Header from '../../components/Header'
+import Sidebar from '../../components/Sidebar'
+import ChatPanel from '../../components/ChatPanel'
+
 const HomePage = () => {
 
   const {currentUser} = useContext(AuthContext)
@@ -20,8 +24,10 @@ const HomePage = () => {
 
   return (
     <div>
-      {currentUser ? <h2>Benvindo {currentUser.email}</h2> : null}
+      <Header />
       <button onClick={logout}>Sair</button>
+      <Sidebar/>
+      <ChatPanel/>
     </div>
   );
 };

@@ -18,7 +18,7 @@ export const AuthContextProvider = ({ children }) => {
       
 
     }, [currentUser]);
-    // console.log(currentUser);
+    console.log(currentUser);
 
     
   

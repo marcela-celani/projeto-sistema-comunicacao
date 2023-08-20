@@ -11,11 +11,14 @@ import {
   Button,
   Heading,
   Text,
+  Link as ChakraLink
 } from '@chakra-ui/react'
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebase";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
+
+import logo from '../../assets/logo.png'
 
 const LoginPage = () => {
 
@@ -25,8 +28,8 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -52,9 +55,10 @@ const LoginPage = () => {
       bg={('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool <Text color={'blue.400'}>features</Text> ✌️
+          <img src={logo} alt='logo'/>
+          <Heading fontSize={'4xl'} mt={10} color={'white'}>Faça o Login</Heading>
+          <Text fontSize={'lg'} color={'gray.400'}>
+            para utilizar o sistema de comunicação interno da Seu Boné ✌️
           </Text>
         </Stack>
         <Box
@@ -65,34 +69,36 @@ const LoginPage = () => {
           <Stack spacing={4}>
             <form onSubmit={handleSubmit}>
               <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
+                <FormLabel color={'gray.400'}>Email address</FormLabel>
                 <Input type="email"     
                 name="email" />
               </FormControl>
-              <FormControl id="password">
+              <FormControl mt={2} color={'gray.400'} id="password">
                 <FormLabel>Password</FormLabel>
                 <Input type="password"
                 name="senha" />
               </FormControl>
-              <Stack spacing={10}>
+              <Stack spacing={6}>
                 <Stack
                   direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
-                  <Text color={'blue.400'}>Forgot password?</Text>
+                  <Checkbox mt={2} color={'gray.400'}>Lembre-se de mim</Checkbox>
+                  <Text mt={2} color={'blue.400'}>Esqueceu sua senha?</Text>
+                  
                 </Stack>
                 <Button
                   type="submit"
-                  bg={'brand.blue'}
-                  color={'white'}
+                  bg={'brand.yellow'}
+                  color={'black'}
                   _hover={{
-                    bg: 'brand.yellow',
-                    color: 'black'
+                    bg: 'brand.blue',
+                    color: 'white'
                   }}>
                   Login
                 </Button>
-                </Stack>
+                  <Link to="/" ><ChakraLink color={'blue.400'}>Crie sua conta</ChakraLink></Link>
+              </Stack>
             </form> 
           </Stack>
         </Box>
