@@ -1,3 +1,17 @@
+'use client'
+
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Stack,
+  Button,
+  Heading,
+  Text,
+} from '@chakra-ui/react'
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebase";
 import { useState } from "react";
@@ -31,34 +45,59 @@ const LoginPage = () => {
   }
   
   return (
-    <div>
-      <h1>Login</h1>
-      <h2>Insira seu nome e email</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Digite seu email"
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            name="senha"
-            id="senha"
-            placeholder="Digite sua senha"
-          />
-        </div>
-        <button>Login</button>
-      </form>
-      
-      <div>
-        <p>Não possui uma conta?</p>
-        <Link to="/cadastro">Cria sua conta aqui!</Link>
-      </div>
-    </div>
+    <Flex
+      minH={'100vh'}
+      align={'center'}
+      justify={'center'}
+      bg={('gray.50', 'gray.800')}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            to enjoy all of our cool <Text color={'blue.400'}>features</Text> ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}>
+          <Stack spacing={4}>
+            <form onSubmit={handleSubmit}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
+                <Input type="email"     
+                name="email" />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input type="password"
+                name="senha" />
+              </FormControl>
+              <Stack spacing={10}>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}>
+                  <Checkbox>Remember me</Checkbox>
+                  <Text color={'blue.400'}>Forgot password?</Text>
+                </Stack>
+                <Button
+                  type="submit"
+                  bg={'brand.blue'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'brand.yellow',
+                    color: 'black'
+                  }}>
+                  Login
+                </Button>
+                </Stack>
+            </form> 
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };
 

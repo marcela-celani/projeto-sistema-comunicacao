@@ -13,9 +13,9 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path='/cadastro' element={<SignUpPage />} />
-        <Route path='/homepage' element={currentUser ? <HomePage /> : <LoginPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/' element={<SignUpPage />} />
+        <Route path='/homepage' element={currentUser ? <HomePage /> : <SignUpPage />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
