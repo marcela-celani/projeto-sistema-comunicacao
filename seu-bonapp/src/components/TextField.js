@@ -5,10 +5,9 @@ import { db } from '../services/firebase';
 import { Button, Flex, Input } from '@chakra-ui/react';
 
 const TextField = () => {
-  const { currentUser, handleSelect, combinedId, message, setMessage } = useContext(AuthContext);
+  const { currentUser, combinedId, message, setMessage } = useContext(AuthContext);
   
-
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (message.trim() === "") {
@@ -22,8 +21,14 @@ const TextField = () => {
       const chatDocSnap = await getDoc(chatDocRef);
       const existingMessages = chatDocSnap.data().messages || [];
 
+      // Cria um objeto para a nova mensagem com remetente e conteúdo
+      const newMessage = {
+        content: message,
+        sender: currentUser.uid, // Adiciona o ID do remetente
+      };
+
       // Adiciona a nova mensagem ao array existente
-      const newMessages = [...existingMessages, message];
+      const newMessages = [...existingMessages, newMessage];
 
       // Atualiza o documento com o novo array de mensagens
       await updateDoc(chatDocRef, {

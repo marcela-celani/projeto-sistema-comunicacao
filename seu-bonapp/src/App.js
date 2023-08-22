@@ -10,6 +10,7 @@ const App = () => {
         blue: "#088dae",
         // ...
         yellow: "#fcbb19",
+        lightblue: "#98d9ea",
       },
     },
   })

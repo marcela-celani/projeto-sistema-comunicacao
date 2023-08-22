@@ -23,9 +23,13 @@ export const AuthContextProvider = ({ children }) => {
     const [combinedId, setCombinedId] = useState('')
     const [chatData, setChatData] = useState([]);
     const [message, setMessage] = useState("");
+    const [specificUser, setSpecificUser] = useState('')
 
     const handleSelect = async (user) => {
       //check whether the group(chats in firestore) exists, if not create
+      
+      setSpecificUser(user)
+
       const combinedId =
         currentUser.uid > user.uid
           ? currentUser.uid + user.uid
@@ -65,7 +69,7 @@ export const AuthContextProvider = ({ children }) => {
     
   
     return (
-      <AuthContext.Provider value={ {currentUser, setCurrentUser, handleSelect, combinedId, chatData, setChatData, message, setMessage} }>
+      <AuthContext.Provider value={ {currentUser, setCurrentUser, handleSelect, combinedId, chatData, setChatData, message, setMessage, specificUser} }>
         {children}
       </AuthContext.Provider>
     );
