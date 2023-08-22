@@ -15,15 +15,16 @@ import {
   Text,
   Link as ChakraLink
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {  useNavigate } from "react-router-dom";
 import { auth, db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link } from 'react-router-dom';
 
 import logo from '../../assets/logo.png'
+import { AuthContext } from '../../context/AuthContext';
 
 const SignUpPage = () => {
   const [users, setUsers] = useState([]);
@@ -37,13 +38,18 @@ const SignUpPage = () => {
     setLoading(true);
     // const firstName = e.target.firstName.value;
     // const lastName = e.target.lastName.value;  
-    const displayName = e.target.displayName.value;
+    const displayName  = e.target.displayName.value;
     const email = e.target.email.value; 
     const password = e.target.password.value;
 
     try {
 
       const user = await createUserWithEmailAndPassword(auth, email, password);
+
+      await updateProfile(user.user, {
+        displayName: displayName
+      });
+      
 
       await setDoc(doc(db, "users", user.user.uid), {
         uid: user.user.uid,
