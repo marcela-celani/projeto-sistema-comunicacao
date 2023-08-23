@@ -93,13 +93,15 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          <img src={logo} style={{ height: "30px" }} alt="" />
+          <a href="/homepage"><img src={logo} style={{ height: "30px" }} alt="" /></a>
         </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} color="grey" />
+        <CloseButton
+          display={{ base: "flex", md: "none" }}
+          onClick={onClose}
+          color="grey"
+        />
       </Flex>
-   
-      <NavItem icon={LinkItems[0].icon}>Home</NavItem>      
-  
+
       <Text color="white">
         <FriendsList />
       </Text>
@@ -145,11 +147,20 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
   );
 };
 
-const MobileNav = ({ onOpen, logout, displayName, specificUser, ...rest }: MobileProps) => {
+const MobileNav = ({
+  onOpen,
+  logout,
+  displayName,
+  combinedId,
+  specificUser,
+  ...rest
+}: MobileProps) => {
   return (
-    <Flex  display="flex"  ml={{ base: 0, md: 60 }}>
-      <Flex display="flex" justify="flex-end"
-        width='100%'
+    <Flex display="flex" ml={{ base: 0, md: 60 }}>
+      <Flex
+        display="flex"
+        justify="flex-end"
+        width="100%"
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
@@ -159,14 +170,6 @@ const MobileNav = ({ onOpen, logout, displayName, specificUser, ...rest }: Mobil
         justifyContent={{ base: "space-between", md: "space-between" }}
         {...rest}
       >
-        {specificUser ? <Flex display="flex" alignItems="center">
-          <Avatar
-              size="sm"
-              name={specificUser.displayName}
-              marginRight="8px"
-            />
-            <Text fontSize="sm">{specificUser.displayName}</Text>
-        </Flex> : <h1></h1>}
         <IconButton
           display={{ base: "flex", md: "none" }}
           onClick={onOpen}
@@ -174,14 +177,19 @@ const MobileNav = ({ onOpen, logout, displayName, specificUser, ...rest }: Mobil
           aria-label="open menu"
           icon={<FiMenu />}
         />
-        <Text
-          display={{ base: "flex", md: "none" }}
-          fontSize="2xl"
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          Logo
-        </Text>
+        {combinedId && specificUser ? (
+          <Flex display="flex" alignItems="center">
+            <Avatar
+              size="sm"
+              name={specificUser.displayName}
+              marginRight="8px"
+            />
+            <Text fontSize="sm">{specificUser.displayName}</Text>
+          </Flex>
+        ) : (
+          <h1></h1>
+        )}
+        {/* {mobile aqui} */}
         <Flex alignItems="center">
           <IconButton
             size="lg"
@@ -197,39 +205,36 @@ const MobileNav = ({ onOpen, logout, displayName, specificUser, ...rest }: Mobil
                 _focus={{ boxShadow: "none" }}
               >
                 <HStack>
-      
                   <VStack
-                    display={{ base: "none", md: "flex" }}
+                    display={{ base: "flex", md: "flex" }}
                     alignItems="flex-start"
                     spacing="1px"
                     ml="2"
-                  >
-      
-                  </VStack>
-                  <Box display={{ base: "none", md: "flex" }}>
+                  ></VStack>
+                  <Box display={{ base: "flex", md: "flex" }}>
                     <FiChevronDown />
                   </Box>
                 </HStack>
               </MenuButton>
               <MenuList
-  bg={useColorModeValue("white", "gray.900")}
-  borderColor={useColorModeValue("gray.200", "gray.700")}
-  textAlign="center" // Centralizar horizontalmente
->
-  <VStack alignItems="center" spacing={1}>
-    <Avatar mt="10px" size="md" name={displayName} />
-    <Text  fontSize="sm">{displayName}</Text>
-    <Text  fontSize="xs" color="gray.600">
-      Membro
-    </Text>
-  </VStack>
-  <MenuItem mt="10px">Editar perfil</MenuItem>
-  <MenuItem>Configurações</MenuItem>
-  <MenuDivider />
-  <MenuItem color="red.600" onClick={logout}>
-    Sair
-  </MenuItem>
-</MenuList>
+                bg={useColorModeValue("white", "gray.900")}
+                borderColor={useColorModeValue("gray.200", "gray.700")}
+                textAlign="center" // Centralizar horizontalmente
+              >
+                <VStack alignItems="center" spacing={1}>
+                  <Avatar mt="10px" size="md" name={displayName} />
+                  <Text fontSize="sm">{displayName}</Text>
+                  <Text fontSize="xs" color="gray.600">
+                    Membro
+                  </Text>
+                </VStack>
+                <MenuItem mt="10px">Editar perfil</MenuItem>
+                <MenuItem>Configurações</MenuItem>
+                <MenuDivider />
+                <MenuItem color="red.600" onClick={logout}>
+                  Sair
+                </MenuItem>
+              </MenuList>
             </Menu>
           </Flex>
         </Flex>
@@ -241,7 +246,7 @@ const MobileNav = ({ onOpen, logout, displayName, specificUser, ...rest }: Mobil
 const SidebarWithHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
-  const { currentUser, combinedId, specificUser } = useContext(AuthContext);
+  const { currentUser, combinedId, specificUser, setCombinedId } = useContext(AuthContext);
   const { displayName } = currentUser;
 
   const logout = () => {
@@ -268,21 +273,36 @@ const SidebarWithHeader = () => {
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} logout={logout} displayName={displayName} specificUser={specificUser}/>
-      <Box ml={{ base: 0, md: 60 }}  p="4">
+      <MobileNav
+        h="10vh"
+        onOpen={onOpen}
+        logout={logout}
+        displayName={displayName}
+        specificUser={specificUser}
+        setCombinedId={setCombinedId}
+        combinedId={combinedId}
+      />
+      <Box ml={{ base: 0, md: 60 }} pl="4" pr="4">
         {/* Content */}
 
-        {!combinedId ? <Bemvindo />
-        :
-        <Flex justify="space-between" flexDirection="column" h='88vh'>
-          <div>
-            <Messages />
-          </div>
-          <div>
-            <TextField />
-          </div>
-        </Flex>
-        }
+        {!combinedId ? (
+          <Bemvindo />
+        ) : (
+          <Flex
+            justify="space-between"
+            flexDirection="column"
+            h="90vh"
+            pb="4"
+            pt="4"
+          >
+            <div>
+              <Messages />
+            </div>
+            <div>
+              <TextField />
+            </div>
+          </Flex>
+        )}
       </Box>
     </Box>
   );
