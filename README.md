@@ -23,5 +23,19 @@ Este é um sistema de comunicação que permite aos usuários interagirem entre 
 ## Instalação
 
 1. Clone este repositório:
-   ```sh
-   git clone https://github.com/marcela-celani/projeto-sistema-comunicacao.git
+```
+git clone https://github.com/marcela-celani/projeto-sistema-comunicacao.git
+```
+2. Instale as dependências:
+```
+cd projeto-sistema-comunicacao
+npm install
+```
+
+3. Configure suas credenciais do Firebase em src/services/firebase.js.
+
+4. Inicie o servidor de desenvolvimento:
+```
+Copy code
+npm start
+```
