@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/projeto-sistema-comunicacao/static/js/main.84702280.js",
+    "main.js": "/projeto-sistema-comunicacao/static/js/main.e5bb00cc.js",
     "static/media/logo.png": "/projeto-sistema-comunicacao/static/media/logo.5dc3d1918b9620befc98.png",
     "index.html": "/projeto-sistema-comunicacao/index.html",
-    "main.84702280.js.map": "/projeto-sistema-comunicacao/static/js/main.84702280.js.map"
+    "main.e5bb00cc.js.map": "/projeto-sistema-comunicacao/static/js/main.e5bb00cc.js.map"
   },
   "entrypoints": [
-    "static/js/main.84702280.js"
+    "static/js/main.e5bb00cc.js"
   ]
 }
