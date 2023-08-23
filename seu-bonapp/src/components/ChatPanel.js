@@ -35,17 +35,9 @@ import { IconType } from "react-icons";
 
 import logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { signOut, updateProfile } from "firebase/auth";
-import { auth, db } from "../services/firebase";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
 import FriendsList from "./FriendsList";
 import Messages from "./Messages";
 import TextField from "./TextField";
@@ -70,14 +62,6 @@ interface MobileProps extends FlexProps {
 interface SidebarProps extends BoxProps {
   onClose: () => void;
 }
-
-const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
-];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (

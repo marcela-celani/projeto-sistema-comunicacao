@@ -21,6 +21,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../context/AuthContext";
+import ErrorPage from "../error/ErrorPage";
+import Carregando from "../../components/Carregando";
 
 const LoginPage = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -58,6 +60,9 @@ const LoginPage = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      if(error){
+        alert('Email ou senha inválidos!')
+      }
     }
   };
 
@@ -78,7 +83,7 @@ const LoginPage = () => {
   }, []);
 
   if (loading) {
-    return <p>Carregando...</p>;
+    return <Carregando />;
   }
 
   return (

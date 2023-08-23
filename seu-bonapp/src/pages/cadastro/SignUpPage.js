@@ -25,6 +25,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
+import ErrorPage from "../error/ErrorPage";
+import Carregando from "../../components/Carregando";
 
 const SignUpPage = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -61,13 +63,17 @@ const SignUpPage = () => {
     } catch (error) {
       setLoading(false);
       const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+        if(errorCode === 'auth/email-already-in-use'){
+          alert('Email ja cadastrado!')
+        } if(errorCode === 'auth/weak-password'){
+          alert('Escolha uma senha com no mínimo 6 caracteres.')
+        }
+      console.log(errorCode);
     }
   };
 
   if (loading) {
-    return <p>Carregando...</p>;
+    return <Carregando />;
   }
 
   return (
