@@ -13,6 +13,24 @@ const App = () => {
         lightblue: "#98d9ea",
       },
     },
+    styles: {
+      global: {
+        '.custom-scrollbar': {
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'gray.600 transparent' // Usando a cor gray.400 do Chakra
+        },
+        '.custom-scrollbar::-webkit-scrollbar': {
+          width: '6px'
+        },
+        '.custom-scrollbar::-webkit-scrollbar-thumb': {
+          backgroundColor: 'gray.600', // Usando a cor gray.400 do Chakra
+          borderRadius: '3px'
+        },
+        '.custom-scrollbar::-webkit-scrollbar-track': {
+          backgroundColor: 'transparent'
+        }
+      }
+    }
   })
   
 

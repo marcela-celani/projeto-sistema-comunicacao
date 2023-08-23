@@ -23,6 +23,7 @@ import logo from "../../assets/logo.png";
 import { AuthContext } from "../../context/AuthContext";
 import ErrorPage from "../error/ErrorPage";
 import Carregando from "../../components/Carregando";
+import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const LoginPage = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
@@ -134,7 +135,7 @@ const LoginPage = () => {
                   name="senha"
                 />
               </FormControl>
-              <Stack spacing={6}>
+              <Stack spacing={4}>
                 <Stack
                   direction={{ base: "column", sm: "row" }}
                   align={"start"}
@@ -169,6 +170,28 @@ const LoginPage = () => {
               </Stack>
             </form>
           </Stack>
+        </Box>
+        <Box color="gray.400">
+          <Flex alignItems={"center"}  justifyContent={"center"}>
+            <Text p={1} >
+              <FaCode/>
+            </Text>
+            <Text  alignItems={"center"}>
+              <Text fontSize='xs'>Desenvolvido por: Marcela Celani</Text>
+            </Text>
+          </Flex>
+          <Flex justifyContent={"center"}>
+            <Text p={1}>
+              <a className="black" href="https://github.com/marcela-celani">
+                <FaGithub />
+              </a>
+            </Text>
+            <Text p={1}>
+              <a  className="blue" href="https://www.linkedin.com/in/marcelacelani/">
+                <FaLinkedin />
+              </a>
+            </Text>
+          </Flex>
         </Box>
       </Stack>
     </Flex>

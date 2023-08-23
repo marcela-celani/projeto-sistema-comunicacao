@@ -23,6 +23,7 @@ import { auth, db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
+import { FaCode, FaGithub, FaLinkedin, FaLinkedinSquare } from "react-icons/fa";
 
 import logo from "../../assets/logo.png";
 import ErrorPage from "../error/ErrorPage";
@@ -40,7 +41,7 @@ const SignUpPage = () => {
     setLoading(true);
     const firstName = e.target.firstName.value;
     const lastName = e.target.lastName.value;
-    const displayName = `${firstName} ${lastName}`
+    const displayName = `${firstName} ${lastName}`;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -63,11 +64,12 @@ const SignUpPage = () => {
     } catch (error) {
       setLoading(false);
       const errorCode = error.code;
-        if(errorCode === 'auth/email-already-in-use'){
-          alert('Email ja cadastrado!')
-        } if(errorCode === 'auth/weak-password'){
-          alert('Escolha uma senha com no mínimo 6 caracteres.')
-        }
+      if (errorCode === "auth/email-already-in-use") {
+        alert("Email ja cadastrado!");
+      }
+      if (errorCode === "auth/weak-password") {
+        alert("Escolha uma senha com no mínimo 6 caracteres.");
+      }
       console.log(errorCode);
     }
   };
@@ -115,7 +117,7 @@ const SignUpPage = () => {
           boxShadow={"lg"}
           p={isMobile ? 6 : 8}
         >
-          <Stack spacing={3} color={"gray.100"}>
+          <Stack spacing={2} color={"gray.100"}>
             <form onSubmit={handleSubmit} color={"gray.100"}>
               <HStack>
                 <Box>
@@ -132,7 +134,7 @@ const SignUpPage = () => {
                 </Box>
               </HStack>
               <FormControl id="email" isRequired>
-                <FormLabel mt={4} color={"gray.400"}>
+                <FormLabel mt={2} color={"gray.400"}>
                   E-mail{" "}
                 </FormLabel>
                 <Input type="email" />
@@ -158,7 +160,7 @@ const SignUpPage = () => {
               </FormControl>
               <Stack spacing={8} pt={2}>
                 <Button
-                  mt={isMobile ? 6 : 10}
+                  mt={isMobile ? 4 : 6}
                   type="submit"
                   loadingText="Submitting"
                   size="lg"
@@ -174,7 +176,7 @@ const SignUpPage = () => {
               </Stack>
             </form>
 
-            <Stack pt={6}>
+            <Stack pt={2}>
               <Text align={"center"} color={"gray.400"}>
                 Já possui conta?{" "}
                 <ChakraLink color={"blue.400"}>
@@ -183,6 +185,28 @@ const SignUpPage = () => {
               </Text>
             </Stack>
           </Stack>
+        </Box>
+        <Box color="gray.400">
+          <Flex alignItems={"center"}  justifyContent={"center"}>
+            <Text p={1} >
+              <FaCode/>
+            </Text>
+            <Text  alignItems={"center"}>
+              <Text fontSize='xs'>Desenvolvido por: Marcela Celani</Text>
+            </Text>
+          </Flex>
+          <Flex justifyContent={"center"}>
+            <Text p={1}>
+              <a className="black" href="https://github.com/marcela-celani">
+                <FaGithub />
+              </a>
+            </Text>
+            <Text p={1}>
+              <a  className="blue" href="https://www.linkedin.com/in/marcelacelani/">
+                <FaLinkedin />
+              </a>
+            </Text>
+          </Flex>
         </Box>
       </Stack>
     </Flex>

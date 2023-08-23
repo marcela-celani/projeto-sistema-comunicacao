@@ -42,6 +42,7 @@ import FriendsList from "./FriendsList";
 import Messages from "./Messages";
 import TextField from "./TextField";
 import Bemvindo from "./Bemvindo";
+import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 
 interface LinkItemProps {
   name: string;
@@ -86,9 +87,38 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         />
       </Flex>
 
-      <Text color="white">
-        <FriendsList />
-      </Text>
+      <Flex h="calc(100% - 85px)" flexDirection={"column"} justifyContent="space-between">
+        <Text
+      borderRadius="md"
+      maxWidth="300px"
+      h="calc(100% - 100px)"
+      overflowY="auto"
+      className="custom-scrollbar">
+          <FriendsList />
+        </Text>
+        <Box color="gray.400" pb={2}>
+            <Flex alignItems={"center"}   justifyContent={"center"}>
+              <Text p={1} >
+                <FaCode/>
+              </Text>
+              <Text  alignItems={"center"}>
+                <Text fontSize='xs'>Desenvolvido por: Marcela Celani</Text>
+              </Text>
+            </Flex>
+            <Flex justifyContent={"center"}>
+              <Text p={1}>
+                <a className="black" href="https://github.com/marcela-celani">
+                  <FaGithub />
+                </a>
+              </Text>
+              <Text p={1}>
+                <a  className="blue" href="https://www.linkedin.com/in/marcelacelani/">
+                  <FaLinkedin />
+                </a>
+              </Text>
+            </Flex>
+          </Box>
+      </Flex>
     </Box>
   );
 };
@@ -271,7 +301,7 @@ const SidebarWithHeader = () => {
 
         {!combinedId ? (
           <Bemvindo />
-        ) : (
+        ) : ( 
           <Flex
             justify="space-between"
             flexDirection="column"
@@ -279,9 +309,9 @@ const SidebarWithHeader = () => {
             pb="4"
             pt="4"
           >
-            <div>
+            <Text>
               <Messages />
-            </div>
+            </Text>
             <div>
               <TextField />
             </div>
