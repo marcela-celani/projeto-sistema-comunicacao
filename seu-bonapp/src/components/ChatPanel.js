@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useState } from "react";
+import React, { ReactNode, useContext } from "react";
 import {
   IconButton,
   Avatar,
@@ -21,16 +21,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from "react-icons/fi";
+import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { IconType } from "react-icons";
 
 import logo from "../assets/logo.png";
@@ -78,7 +69,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          <a href="/homepage"><img src={logo} style={{ height: "30px" }} alt="" /></a>
+          <a href="/homepage">
+            <img src={logo} style={{ height: "30px" }} alt="" />
+          </a>
         </Text>
         <CloseButton
           display={{ base: "flex", md: "none" }}
@@ -87,37 +80,45 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         />
       </Flex>
 
-      <Flex h="calc(100% - 85px)" flexDirection={"column"} justifyContent="space-between">
+      <Flex
+        h="calc(100% - 85px)"
+        flexDirection={"column"}
+        justifyContent="space-between"
+      >
         <Text
-      borderRadius="md"
-      maxWidth="300px"
-      h="calc(100% - 100px)"
-      overflowY="auto"
-      className="custom-scrollbar">
+          borderRadius="md"
+          maxWidth="300px"
+          h="calc(100% - 100px)"
+          overflowY="auto"
+          className="custom-scrollbar"
+        >
           <FriendsList />
         </Text>
         <Box color="gray.400" pb={2}>
-            <Flex alignItems={"center"}   justifyContent={"center"}>
-              <Text p={1} >
-                <FaCode/>
-              </Text>
-              <Text  alignItems={"center"}>
-                <Text fontSize='xs'>Desenvolvido por: Marcela Celani</Text>
-              </Text>
-            </Flex>
-            <Flex justifyContent={"center"}>
-              <Text p={1}>
-                <a className="black" href="https://github.com/marcela-celani">
-                  <FaGithub />
-                </a>
-              </Text>
-              <Text p={1}>
-                <a  className="blue" href="https://www.linkedin.com/in/marcelacelani/">
-                  <FaLinkedin />
-                </a>
-              </Text>
-            </Flex>
-          </Box>
+          <Flex alignItems={"center"} justifyContent={"center"}>
+            <Text p={1}>
+              <FaCode />
+            </Text>
+            <Text alignItems={"center"}>
+              <Text fontSize="xs">Desenvolvido por: Marcela Celani</Text>
+            </Text>
+          </Flex>
+          <Flex justifyContent={"center"}>
+            <Text p={1}>
+              <a className="black" href="https://github.com/marcela-celani">
+                <FaGithub />
+              </a>
+            </Text>
+            <Text p={1}>
+              <a
+                className="blue"
+                href="https://www.linkedin.com/in/marcelacelani/"
+              >
+                <FaLinkedin />
+              </a>
+            </Text>
+          </Flex>
+        </Box>
       </Flex>
     </Box>
   );
@@ -260,7 +261,8 @@ const MobileNav = ({
 const SidebarWithHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
-  const { currentUser, combinedId, specificUser, setCombinedId } = useContext(AuthContext);
+  const { currentUser, combinedId, specificUser, setCombinedId } =
+    useContext(AuthContext);
   const { displayName } = currentUser;
 
   const logout = () => {
@@ -269,7 +271,7 @@ const SidebarWithHeader = () => {
   };
 
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box h="100vh" bg={"gray.100"}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -296,12 +298,20 @@ const SidebarWithHeader = () => {
         setCombinedId={setCombinedId}
         combinedId={combinedId}
       />
-      <Box ml={{ base: 0, md: 60 }} pl="4" pr="4">
+      <Box
+        borderRadius="md"
+        h="calc(100% - 96.3px - 46px)"
+        overflowY="auto"
+        className="custom-scrollbar"
+        ml={{ base: 0, md: 60 }}
+        pl="4"
+        pr="4"
+      >
         {/* Content */}
 
         {!combinedId ? (
           <Bemvindo />
-        ) : ( 
+        ) : (
           <Flex
             justify="space-between"
             flexDirection="column"
@@ -312,12 +322,12 @@ const SidebarWithHeader = () => {
             <Text>
               <Messages />
             </Text>
-            <div>
-              <TextField />
-            </div>
           </Flex>
         )}
       </Box>
+      <Flex display="flex" ml={{ base: 0, md: 60 }} >
+        <TextField display="flex"/>
+      </Flex>
     </Box>
   );
 };

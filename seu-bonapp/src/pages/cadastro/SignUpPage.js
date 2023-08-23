@@ -23,15 +23,13 @@ import { auth, db } from "../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
-import { FaCode, FaGithub, FaLinkedin, FaLinkedinSquare } from "react-icons/fa";
+import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 
 import logo from "../../assets/logo.png";
-import ErrorPage from "../error/ErrorPage";
 import Carregando from "../../components/Carregando";
 
 const SignUpPage = () => {
   const [isMobile] = useMediaQuery("(max-width: 767px)");
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);

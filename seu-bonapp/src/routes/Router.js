@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
 import LoginPage from '../pages/login/LoginPage'
 import SignUpPage from '../pages/cadastro/SignUpPage'
 import HomePage from '../pages/home/HomePage'
@@ -13,7 +13,7 @@ const Router = () => {
 
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<SignUpPage />} />
@@ -21,7 +21,7 @@ const Router = () => {
         <Route path='/messages' element={<Messages />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

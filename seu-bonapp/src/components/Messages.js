@@ -1,39 +1,37 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import React, { useContext, useEffect } from "react";
 import { db } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import Bemvindo from "./Bemvindo";
-import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 const Messages = () => {
   const {
     currentUser,
-    handleSelect,
     combinedId,
     chatData,
     setChatData,
-    message,
-    setMessage,
+    message
   } = useContext(AuthContext);
 
   // Mostra chat de mensagens na tela
   const fetchGroupData = async () => {
     if (combinedId) {
       const docRef = doc(db, "chats", `${combinedId}`);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setChatData(docSnap.data());
-        console.log(docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
+      onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          setChatData(docSnap.data());
+          console.log(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      });
     }
   };
 
   useEffect(() => {
     fetchGroupData();
-  }, [combinedId, message]);
+  }, [combinedId]);
 
   return (
     <Box>

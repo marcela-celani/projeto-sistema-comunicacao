@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../services/firebase';
-import { Button, Flex, Input } from '@chakra-ui/react';
+import { Button, Flex, Input, useMediaQuery } from '@chakra-ui/react';
 
 const TextField = () => {
   const { currentUser, combinedId, message, setMessage } = useContext(AuthContext);
-  
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -43,9 +43,9 @@ const TextField = () => {
   };
 
   return (
-    <div>
+    <Flex>
       <form onSubmit={handleSubmit}>
-        <Flex alignItems="center">
+        <Flex alignItems="center" w={isMobile ? "100vw" : "calc(100vw - 260px)"} pr={2} pl={2} h={isMobile ? "14vh" : "calc(10vh - 75px)"}>
           <Input
             type="text"
             placeholder="Digite a mensagem"
@@ -76,7 +76,7 @@ const TextField = () => {
           </Button>
         </Flex>
       </form>
-    </div>
+    </Flex>
   )
 }
 

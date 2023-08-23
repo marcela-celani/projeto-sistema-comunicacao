@@ -1,17 +1,12 @@
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
-  serverTimestamp,
-  setDoc,
-  updateDoc,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import { Avatar, Input, InputGroup, InputLeftElement, InputRightElement, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Avatar, Input, InputGroup, InputRightElement, ListItem, UnorderedList } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
 const FriendsList = () => {

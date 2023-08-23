@@ -21,7 +21,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../context/AuthContext";
-import ErrorPage from "../error/ErrorPage";
 import Carregando from "../../components/Carregando";
 import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 
