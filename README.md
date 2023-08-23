@@ -21,6 +21,10 @@ Este é um sistema de comunicação que permite aos usuários interagirem entre 
 - Firebase (Firestore e Autenticação)
 
 ## Instalação
+### Pré-requisitos:
+
+-   Node.js
+-   npm
 
 1. Clone este repositório:
 ```
@@ -36,6 +40,5 @@ npm install
 
 4. Inicie o servidor de desenvolvimento:
 ```
-Copy code
 npm start
 ```
