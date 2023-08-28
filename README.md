@@ -37,7 +37,7 @@ The project has 3 sections:
 * Lists rendering
 * localStorage
   
-## Installation
+## Run & Deploy
 ### Prerequisites:
 
 - Node.js
