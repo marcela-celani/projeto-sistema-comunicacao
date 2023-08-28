@@ -1,4 +1,4 @@
-# Chat App - SEU BONAPP
+# 💻 Website - SEU BONAPP - Chat App
 
 📝 This project consists of a communication system developed as a technical challenge for the selection process at Seu Boné Company. 
     Note: the logo used does not match the original, having been modified for project pitch purposes, and follows all rights reserved to the owner.
