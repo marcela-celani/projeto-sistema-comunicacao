@@ -1,4 +1,4 @@
-# 💻 Website - Fast CHat - Messenger
+# 💻 Website - Fast Chat - Messenger
 
 📝 This project consists of a communication system developed as a technical challenge for a selection process.
 
