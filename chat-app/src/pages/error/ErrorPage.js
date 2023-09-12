@@ -24,11 +24,11 @@ const ErrorPage = () => {
                   type="submit"
                   loadingText="Submitting"
                   size="lg"
-                  bg={"brand.yellow"}
-                  color={"black"}
+                  bg={"brand.blue"}
+                  color={"white"}
                   _hover={{
-                    bg: "brand.blue",
-                    color: "white",
+                    bg: "brand.purple",
+                    color: "black",
                   }}
                 >
                   Voltar para login
